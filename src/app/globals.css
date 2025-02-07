@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.active {
+  color: #17a2b8;
+}
+
+.bg-img {
+  background-image: url(/public/imagee2.jpg);
+}
