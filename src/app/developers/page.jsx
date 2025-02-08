@@ -57,7 +57,9 @@ function Developers() {
                     </p>
                     <i className="text-lg">{developer.location}</i>
                     <button className="w-[140px] py-2 bg-[#0f3352] text-white rounded-md ">
-                      <Link href="/developers/">View Profile</Link>
+                      <Link href={`/developers/${developer._id}`}>
+                        View Profile
+                      </Link>
                     </button>
                   </div>
                 </div>

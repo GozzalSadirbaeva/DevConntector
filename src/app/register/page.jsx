@@ -2,33 +2,38 @@
 import { baseUrl } from "@/utils/api";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 function Register() {
   const route = useRouter();
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && localStorage.getItem("accessToken")) {
+      route.push("/dashboard");
+    }
+  }, []);
 
   const onSubmits = async (e) => {
     e.preventDefault();
     let name = e.target[0].value;
     let email = e.target[1].value;
     let password = e.target[2].value;
+
     try {
-      let res = await axios.post(`${baseUrl}/users`, {
-        name,
-        email,
-        password,
-      });
+      let res = await axios.post(`${baseUrl}/users`, { name, email, password });
+
       if (res.status === 200) {
-        localStorage.setItem("accessToken", res.data.token);
-        route.push("/dashboard");
+        // ✅ `window` borligini tekshirib, tokenni saqlaymiz
+        if (typeof window !== "undefined") {
+          localStorage.setItem("accessToken", res.data.token);
+          route.push("/dashboard"); // Dashboard sahifasiga o'tish
+        }
       }
-      console.log(res);
     } catch (error) {
-      console.log(error);
+      console.error("Registration error:", error);
     }
   };
-  if (localStorage.getItem("accessToken")) {
-    route.push("/dashboard");
-  }
+
   return (
     <div className="flex gap-[130px] max-w-[1440px] w-full mx-auto my-0">
       <div className="">

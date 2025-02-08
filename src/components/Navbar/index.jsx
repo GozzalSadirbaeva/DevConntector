@@ -2,16 +2,25 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import "./style.css";
 import { RiLogoutCircleRLine } from "react-icons/ri";
+import "./style.css";
+import { useEffect, useState } from "react";
 
 function Navbar() {
-  const token = localStorage.getItem("accessToken");
+  const [token, setToken] = useState(null);
   const pathname = usePathname();
   const route = useRouter();
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setToken(localStorage.getItem("accessToken"));
+    }
+  }, []);
+
   const logOut = () => {
+    if (typeof window === "undefined") return; 
     localStorage.removeItem("accessToken");
+    setToken(null); 
     route.push("/");
   };
 
@@ -77,7 +86,7 @@ function Navbar() {
                 pathname === "/" ? "active" : ""
               } text-lg font-medium`}
             >
-             <RiLogoutCircleRLine size = '28px'/>
+              <RiLogoutCircleRLine size="28px" />
             </button>
           </div>
         )}

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -117,7 +118,7 @@ const CreateProfile = () => {
           Send
         </button>
         <button className="px-5 py-2 bg-[#4b5563] text-white rounded-md text-lg">
-          Go back
+          <Link href="/dashboard">Go Back</Link>
         </button>
       </div>
     </div>
